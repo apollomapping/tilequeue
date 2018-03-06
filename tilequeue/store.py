@@ -13,14 +13,6 @@ import random
 import threading
 import time
 
-
-def calc_hash(s):
-    m = md5.new()
-    m.update(s)
-    md5_hash = m.hexdigest()
-    return md5_hash[:5]
-
-
 def s3_tile_key(date, path, layer, coord, extension):
     prefix = '/%s' % path if path else ''
     path_to_hash = '%(prefix)s/%(layer)s/%(z)d/%(x)d/%(y)d.%(ext)s' % dict(
@@ -31,10 +23,9 @@ def s3_tile_key(date, path, layer, coord, extension):
         y=coord.row,
         ext=extension,
     )
-    md5_hash = calc_hash(path_to_hash)
-    s3_path = '/%(date)s/%(md5)s%(path_to_hash)s' % dict(
+
+    s3_path = '/%(date)s/%(path_to_hash)s' % dict(
         date=date,
-        md5=md5_hash,
         path_to_hash=path_to_hash,
     )
     return s3_path
