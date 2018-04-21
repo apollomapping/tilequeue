@@ -369,7 +369,7 @@ def coord_is_valid(coord, max_zoom=20):
 
 
 def metatile_zoom_from_size(metatile_size):
-    metatile_zoom = 0
+    metatile_zoom = 1
 
     if metatile_size is not None:
         metatile_zoom = int(math.log(metatile_size, 2))
@@ -381,9 +381,9 @@ def metatile_zoom_from_size(metatile_size):
 
 def metatile_zoom_from_str(tile_size):
     if not tile_size:
-        # missing tile size indicates the default, which is currently 256px.
-        # this is a zoom offset of 0.
-        return 0
+        # missing tile size indicates the default, which is currently 512px.
+        # this is a zoom offset of 0. 
+        return 1
 
     # calculate the number of standard 256px tiles across this tile is.
     size = int(tile_size) / 256
